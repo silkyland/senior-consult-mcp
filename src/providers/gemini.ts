@@ -16,7 +16,7 @@ export class GeminiProvider implements AIProvider {
   ): Promise<string> {
     if (!this.apiKey) throw new Error("GEMINI_API_KEY not found");
 
-    const apiModel = model || process.env.GEMINI_MODEL || "gemini-2.0-flash";
+    const apiModel = model || process.env.GEMINI_MODEL || "gemini-3-flash";
     const apiUrl =
       url ||
       process.env.GEMINI_URL ||

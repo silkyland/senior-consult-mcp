@@ -2,15 +2,11 @@ import { AskSeniorArgs } from "../types.js";
 import { getProvider, SENIOR_SYSTEM_PROMPT } from "../providers/index.js";
 
 export async function askSenior(args: AskSeniorArgs) {
-  const { question, context, provider: providerType, model, url } = args;
+  const { question } = args;
 
-  const provider = await getProvider(providerType);
+  const provider = await getProvider("auto");
 
-  const prompt = context
-    ? `Context:\n${context}\n\nQuestion: ${question}`
-    : question;
-
-  const response = await provider.ask(prompt, SENIOR_SYSTEM_PROMPT, model, url);
+  const response = await provider.ask(question, SENIOR_SYSTEM_PROMPT);
 
   return {
     content: [

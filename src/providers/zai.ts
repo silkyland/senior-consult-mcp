@@ -20,7 +20,7 @@ export class ZaiProvider implements AIProvider {
       url ||
       process.env.ZAI_URL ||
       "https://api.z.ai/api/paas/v4/chat/completions";
-    const apiModel = model || process.env.ZAI_MODEL || "glm-4-plus";
+    const apiModel = model || process.env.ZAI_MODEL || "glm-4.6";
 
     const response = await fetch(apiUrl, {
       method: "POST",

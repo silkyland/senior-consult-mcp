@@ -20,7 +20,7 @@ export class OpenAIProvider implements AIProvider {
       url ||
       process.env.OPENAI_URL ||
       "https://api.openai.com/v1/chat/completions";
-    const apiModel = model || process.env.OPENAI_MODEL || "gpt-4o";
+    const apiModel = model || process.env.OPENAI_MODEL || "gpt-5.2-codex";
 
     const response = await fetch(apiUrl, {
       method: "POST",

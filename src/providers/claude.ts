@@ -18,8 +18,7 @@ export class ClaudeProvider implements AIProvider {
 
     const apiUrl =
       url || process.env.CLAUDE_URL || "https://api.anthropic.com/v1/messages";
-    const apiModel =
-      model || process.env.CLAUDE_MODEL || "claude-3-5-sonnet-latest";
+    const apiModel = model || process.env.CLAUDE_MODEL || "claude-sonnet-4-5";
 
     const response = await fetch(apiUrl, {
       method: "POST",

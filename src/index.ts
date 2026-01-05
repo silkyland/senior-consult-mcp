@@ -56,33 +56,6 @@ class SeniorConsultServer {
                 type: "string",
                 description: "The question or problem to solve",
               },
-              context: {
-                type: "string",
-                description: "Optional code or project context",
-              },
-              provider: {
-                type: "string",
-                enum: [
-                  "claude",
-                  "gemini",
-                  "openai",
-                  "z.ai",
-                  "openai-compatible",
-                  "auto",
-                ],
-                default: "auto",
-                description: "AI provider to use",
-              },
-              model: {
-                type: "string",
-                description:
-                  "Specific model to use (optional, overrides default)",
-              },
-              url: {
-                type: "string",
-                description:
-                  "Custom API endpoint URL (optional, overrides default)",
-              },
             },
             required: ["question"],
           },
@@ -94,34 +67,6 @@ class SeniorConsultServer {
             type: "object",
             properties: {
               code: { type: "string", description: "The code to review" },
-              language: { type: "string", description: "Programming language" },
-              focus: {
-                type: "string",
-                description:
-                  "Specific focus (e.g., performance, security, readability)",
-              },
-              provider: {
-                type: "string",
-                enum: [
-                  "claude",
-                  "gemini",
-                  "openai",
-                  "z.ai",
-                  "openai-compatible",
-                  "auto",
-                ],
-                default: "auto",
-              },
-              model: {
-                type: "string",
-                description:
-                  "Specific model to use (optional, overrides default)",
-              },
-              url: {
-                type: "string",
-                description:
-                  "Custom API endpoint URL (optional, overrides default)",
-              },
             },
             required: ["code"],
           },
@@ -136,33 +81,6 @@ class SeniorConsultServer {
               problem: {
                 type: "string",
                 description: "Architecture challenge description",
-              },
-              constraints: {
-                type: "string",
-                description: "Technical constraints",
-              },
-              stack: { type: "string", description: "Tech stack being used" },
-              provider: {
-                type: "string",
-                enum: [
-                  "claude",
-                  "gemini",
-                  "openai",
-                  "z.ai",
-                  "openai-compatible",
-                  "auto",
-                ],
-                default: "auto",
-              },
-              model: {
-                type: "string",
-                description:
-                  "Specific model to use (optional, overrides default)",
-              },
-              url: {
-                type: "string",
-                description:
-                  "Custom API endpoint URL (optional, overrides default)",
               },
             },
             required: ["problem"],

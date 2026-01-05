@@ -17,28 +17,14 @@ export interface ProviderConfig {
 
 export interface AskSeniorArgs {
   question: string;
-  context?: string;
-  provider?: ProviderType;
-  model?: string;
-  url?: string;
 }
 
 export interface CodeReviewArgs {
   code: string;
-  language?: string;
-  focus?: string;
-  provider?: ProviderType;
-  model?: string;
-  url?: string;
 }
 
 export interface ArchitectureAdviceArgs {
   problem: string;
-  constraints?: string;
-  stack?: string;
-  provider?: ProviderType;
-  model?: string;
-  url?: string;
 }
 
 export interface AIProvider {

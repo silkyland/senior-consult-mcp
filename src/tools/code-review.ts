@@ -2,17 +2,15 @@ import { CodeReviewArgs } from "../types.js";
 import { getProvider, SENIOR_SYSTEM_PROMPT } from "../providers/index.js";
 
 export async function codeReview(args: CodeReviewArgs) {
-  const { code, language, focus, provider: providerType, model, url } = args;
+  const { code } = args;
 
-  const provider = await getProvider(providerType);
+  const provider = await getProvider("auto");
 
-  const prompt = `Please review the following ${language || ""} code:
+  const prompt = `Please review the following code:
 
-\`\`\`${language || ""}
+\`\`\`
 ${code}
 \`\`\`
-
-${focus ? `Focus your review on: ${focus}` : ""}
 
 Please provide:
 1. Issues found
@@ -21,7 +19,7 @@ Please provide:
 
 Keep the review concise and actionable.`;
 
-  const response = await provider.ask(prompt, SENIOR_SYSTEM_PROMPT, model, url);
+  const response = await provider.ask(prompt, SENIOR_SYSTEM_PROMPT);
 
   return {
     content: [
