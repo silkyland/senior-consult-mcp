@@ -1,20 +1,39 @@
 {
   "name": "senior-consult-mcp",
-  "module": "src/index.ts",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "bin": {
+    "senior-consult": "dist/index.js"
+  },
   "type": "module",
+  "description": "An MCP server for junior AI agents to consult senior AI developer mentors",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc && chmod +x dist/index.js",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
     "start": "node dist/index.js"
   },
-  "private": true,
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "senior-consult",
+    "ai-mentor",
+    "claude",
+    "gemini",
+    "openai",
+    "z.ai"
+  ],
+  "author": "Bundit Nuntates",
   "license": "MIT",
   "devDependencies": {
-    "@types/bun": "latest",
-    "@types/node": "^25.0.3",
-    "ts-node": "^10.9.2"
-  },
-  "peerDependencies": {
-    "typescript": "^5.9.3"
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.25.1",

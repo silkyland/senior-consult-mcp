@@ -54,8 +54,57 @@ Add this to your `mcp_config.json`:
 {
   "mcpServers": {
     "senior-consult": {
-      "command": "bun",
-      "args": ["run", "/absolute/path/to/senior-consult-mcp/src/index.ts"],
+      "command": "node",
+      "args": ["/absolute/path/to/senior-consult-mcp/dist/index.js"],
+      "env": {
+        "ANTHROPIC_API_KEY": "your-key",
+        "GEMINI_API_KEY": "your-key",
+        "OPENAI_API_KEY": "your-key",
+        "ZAI_API_KEY": "your-key",
+        "OPENAI_COMPATIBLE_API_KEY": "your-key"
+      }
+    }
+  }
+}
+```
+
+## Installation
+
+### 1. Via npx (Recommended for most users)
+
+You can run the server directly without local installation:
+
+```json
+{
+  "mcpServers": {
+    "senior-consult": {
+      "command": "npx",
+      "args": ["-y", "senior-consult-mcp"],
+      "env": {
+        "ANTHROPIC_API_KEY": "your-key",
+        "GEMINI_API_KEY": "your-key",
+        "OPENAI_API_KEY": "your-key",
+        "ZAI_API_KEY": "your-key",
+        "OPENAI_COMPATIBLE_API_KEY": "your-key"
+      }
+    }
+  }
+}
+```
+
+### 2. Global Installation
+
+```bash
+npm install -g senior-consult-mcp
+```
+
+Then use `senior-consult` as the command:
+
+```json
+{
+  "mcpServers": {
+    "senior-consult": {
+      "command": "senior-consult",
       "env": {
         "ANTHROPIC_API_KEY": "your-key",
         "GEMINI_API_KEY": "your-key",
@@ -71,8 +120,14 @@ Add this to your `mcp_config.json`:
 ## Development
 
 ```bash
-bun install
-bun build
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Start (for testing stdio)
+npm start
 ```
 
 The server runs on `stdio`.
