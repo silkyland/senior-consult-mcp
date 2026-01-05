@@ -119,6 +119,18 @@ npm run build
 npm start
 ```
 
+## Contributing
+
+Contributions are welcome! Whether it's reporting a bug, suggesting a new feature, or submitting a pull request, your help is appreciated.
+
+1.  **Fork** the repository.
+2.  **Create** a new branch (`git checkout -b feature/amazing-feature`).
+3.  **Commit** your changes (`git commit -m 'Add some amazing feature'`).
+4.  **Push** to the branch (`git push origin feature/amazing-feature`).
+5.  **Open** a Pull Request.
+
+Please make sure to update tests and documentation as appropriate.
+
 ## License
 
 MIT
