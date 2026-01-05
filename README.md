@@ -1,86 +1,27 @@
-# Senior Consult MCP Server
+# Senior Consult MCP
 
-An MCP (Model Context Protocol) server that empowers junior AI agents to consult with senior AI experts (Claude, Gemini, OpenAI, DeepSeek, Z.ai) for specialized architectural and coding guidance.
+> Let your AI agent consult top-tier models for expert technical guidance.
 
-## Key Features
+An MCP server that connects your AI agent to expert models (Claude, GPT, Gemini, DeepSeek, Z.ai) for architectural advice, code reviews, and complex problem-solving.
 
-- **Expert Consultation**: Seamlessly bridge the gap between junior agents and top-tier models.
-- **Smart History (Memory)**: Token-aware conversation tracking with auto-trimming to keep context precise and efficient.
-- **Support for 5+ Providers**: Native support for Claude, Gemini, OpenAI, DeepSeek, Z.ai, and any OpenAI-compatible API.
-- **Consolidated Advice**: System prompt optimized for short, high-impact technical consultation.
+## Why?
 
-## How to Use
-
-Once installed and configured, your AI Agent can call these tools:
-
-1.  **`ask_senior`**: General consultation for complex problems.
-2.  **`code_review`**: Detailed checks for code quality, security, and performance.
-3.  **`architecture_advice`**: Strategic advice on system design and patterns.
-4.  **`reset_history`**: Clear the conversation context/memory to start fresh.
-
-**Example Prompts**:
-
-- "Ask senior (DeepSeek) to check for potential race conditions in this logic: [attach code]"
-- "Review this snippet for potential memory leaks."
-- "Consult senior about the pros and cons of using WebSockets vs Server-Sent Events for this feature."
+Your AI agent is great, but sometimes it needs a second opinion. This MCP server lets it consult specialized models for high-stakes decisions without switching context.
 
 ## Tools
 
-### 1. `ask_senior`
+| Tool                | Description                            |
+| ------------------- | -------------------------------------- |
+| ask_senior          | General technical consultation         |
+| code_review         | Security, performance & quality checks |
+| architecture_advice | System design guidance                 |
+| reset_history       | Clear conversation memory              |
 
-General technical consultation.
+## Quick Start
 
-- `question`: The specific problem or question.
+### 1. Configure MCP Client
 
-### 2. `code_review`
-
-Expert code review.
-
-- `code`: The source code to be reviewed.
-
-### 3. `architecture_advice`
-
-Design and architecture guidance.
-
-- `problem`: Description of the architectural challenge.
-
-### 4. `reset_history`
-
-Clear the current session's memory/history.
-
----
-
-## Configuration
-
-Set environment variables in your MCP client configuration (e.g., Claude Desktop, Cursor, or Windsurf).
-
-### 1. API Keys (Required for used providers)
-
-- `ANTHROPIC_API_KEY`
-- `GEMINI_API_KEY`
-- `OPENAI_API_KEY`
-- `DEEPSEEK_API_KEY`
-- `ZAI_API_KEY` (or `ZHIPU_API_KEY`)
-- `OPENAI_COMPATIBLE_API_KEY`
-
-### 2. Default Models & URLs (Optional)
-
-| Provider   | Model Env Var             | URL Env Var             | Default Model       | Default Endpoint                        |
-| ---------- | ------------------------- | ----------------------- | ------------------- | --------------------------------------- |
-| Claude     | `CLAUDE_MODEL`            | `CLAUDE_URL`            | `claude-sonnet-4-5` | `api.anthropic.com/v1/messages`         |
-| Gemini     | `GEMINI_MODEL`            | `GEMINI_URL`            | `gemini-3-flash`    | (Google AI API)                         |
-| OpenAI     | `OPENAI_MODEL`            | `OPENAI_URL`            | `gpt-4o`            | `api.openai.com/v1/chat/completions`    |
-| DeepSeek   | `DEEPSEEK_MODEL`          | `DEEPSEEK_URL`          | `deepseek-chat`     | `api.deepseek.com/chat/completions`     |
-| Z.ai       | `ZAI_MODEL`               | `ZAI_URL`               | `glm-4.6`           | `api.z.ai/api/paas/v4/chat/completions` |
-| Compatible | `OPENAI_COMPATIBLE_MODEL` | `OPENAI_COMPATIBLE_URL` | (Required)          | (Required)                              |
-
----
-
-## Installation
-
-### 1. Via npx (Recommended)
-
-Add this to your MCP settings:
+Add to your MCP settings (Claude Desktop, Cursor, Windsurf, etc.):
 
 ```json
 {
@@ -89,48 +30,163 @@ Add this to your MCP settings:
       "command": "npx",
       "args": ["-y", "senior-consult-mcp"],
       "env": {
-        "DEEPSEEK_API_KEY": "your-key",
-        "ANTHROPIC_API_KEY": "your-key",
-        "GEMINI_API_KEY": "your-key"
+        "ANTHROPIC_API_KEY": "your-key"
       }
     }
   }
 }
 ```
 
-### 2. Global Installation
+### 2. Use It
+
+- "Ask senior to review this authentication flow for security issues"
+- "Get architecture advice on microservices vs monolith for our scale"
+- "Code review this function for potential memory leaks"
+
+## Installation
+
+**Option A: npx (Recommended)**
+
+```bash
+# No install needed - runs directly
+npx -y senior-consult-mcp
+```
+
+**Option B: Global**
 
 ```bash
 npm install -g senior-consult-mcp
 ```
 
----
-
-## Development
+**Option C: Local Development**
 
 ```bash
-# Install dependencies
+git clone https://github.com/silkyland/senior-consult-mcp.git
+cd senior-consult-mcp
 npm install
-
-# Build
 npm run build
-
-# Test locally (stdio)
 npm start
 ```
 
+## Environment Variables
+
+### API Keys
+
+Set at least one provider key:
+
+```bash
+ANTHROPIC_API_KEY=sk-ant-...      # Claude
+OPENAI_API_KEY=sk-...             # GPT
+GEMINI_API_KEY=...                # Gemini
+DEEPSEEK_API_KEY=sk-...           # DeepSeek
+ZAI_API_KEY=...                   # Z.ai (or ZHIPU_API_KEY)
+OPENAI_COMPATIBLE_API_KEY=...     # Custom endpoint
+```
+
+### Model Configuration (Optional)
+
+Override default models:
+
+```bash
+# Claude
+CLAUDE_MODEL=claude-sonnet-4-5
+CLAUDE_URL=https://api.anthropic.com/v1/messages
+
+# OpenAI
+OPENAI_MODEL=gpt-4o
+OPENAI_URL=https://api.openai.com/v1/chat/completions
+
+# Gemini
+GEMINI_MODEL=gemini-2.5-flash
+
+# DeepSeek
+DEEPSEEK_MODEL=deepseek-chat
+DEEPSEEK_URL=https://api.deepseek.com/chat/completions
+
+# Z.ai
+ZAI_MODEL=glm-4-plus
+ZAI_URL=https://open.bigmodel.cn/api/paas/v4/chat/completions
+
+# Custom OpenAI-compatible
+OPENAI_COMPATIBLE_MODEL=your-model
+OPENAI_COMPATIBLE_URL=https://your-endpoint/v1/chat/completions
+```
+
+### Full Example Config
+
+```json
+{
+  "mcpServers": {
+    "senior-consult": {
+      "command": "npx",
+      "args": ["-y", "senior-consult-mcp"],
+      "env": {
+        "ANTHROPIC_API_KEY": "sk-ant-xxx",
+        "DEEPSEEK_API_KEY": "sk-xxx",
+        "GEMINI_API_KEY": "xxx",
+        "CLAUDE_MODEL": "claude-sonnet-4-5",
+        "DEEPSEEK_MODEL": "deepseek-reasoner"
+      }
+    }
+  }
+}
+```
+
+## Features
+
+- Multi-Provider - Claude, GPT, Gemini, DeepSeek, Z.ai, custom endpoints
+- Smart Memory - Token-aware history with auto-trimming
+- Optimized Prompts - Tuned for concise, actionable advice
+- Zero Config - Works out of the box with sensible defaults
+
 ## Contributing
 
-Contributions are welcome! Whether it's reporting a bug, suggesting a new feature, or submitting a pull request, your help is appreciated.
+We welcome contributions! Here's how you can help:
 
-1.  **Fork** the repository.
-2.  **Create** a new branch (`git checkout -b feature/amazing-feature`).
-3.  **Commit** your changes (`git commit -m 'Add some amazing feature'`).
-4.  **Push** to the branch (`git push origin feature/amazing-feature`).
-5.  **Open** a Pull Request.
+### Ways to Contribute
 
-Please make sure to update tests and documentation as appropriate.
+- Report bugs - Open an issue with reproduction steps
+- Suggest features - Share ideas in discussions
+- Improve docs - Fix typos, add examples
+- Submit PRs - Bug fixes, new providers, optimizations
+
+### Development Setup
+
+```bash
+# Clone & install
+git clone https://github.com/silkyland/senior-consult-mcp.git
+cd senior-consult-mcp
+npm install
+
+# Build & test
+npm run build
+
+# Run locally
+npm start
+```
+
+### Pull Request Process
+
+1. Fork the repo
+2. Create feature branch (git checkout -b feature/awesome)
+3. Make changes & add tests
+4. Commit (git commit -m 'Add awesome feature')
+5. Push (git push origin feature/awesome)
+6. Open PR with clear description
+
+### Code Style
+
+- TypeScript strict mode
+- ESLint + Prettier
+- Meaningful commit messages
+- Tests for new features
 
 ## License
 
 MIT
+
+---
+
+**Questions?** Open an issue or start a discussion.
+
+**Like this project?** Give it a star to show support!
