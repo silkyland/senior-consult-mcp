@@ -16,8 +16,11 @@ export class OpenAIProvider implements AIProvider {
   ): Promise<string> {
     if (!this.apiKey) throw new Error("OPENAI_API_KEY not found");
 
-    const apiUrl = url || "https://api.openai.com/v1/chat/completions";
-    const apiModel = model || "gpt-4o";
+    const apiUrl =
+      url ||
+      process.env.OPENAI_URL ||
+      "https://api.openai.com/v1/chat/completions";
+    const apiModel = model || process.env.OPENAI_MODEL || "gpt-4o";
 
     const response = await fetch(apiUrl, {
       method: "POST",

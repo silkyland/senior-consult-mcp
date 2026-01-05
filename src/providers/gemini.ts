@@ -16,9 +16,10 @@ export class GeminiProvider implements AIProvider {
   ): Promise<string> {
     if (!this.apiKey) throw new Error("GEMINI_API_KEY not found");
 
-    const apiModel = model || "gemini-2.0-flash";
+    const apiModel = model || process.env.GEMINI_MODEL || "gemini-2.0-flash";
     const apiUrl =
       url ||
+      process.env.GEMINI_URL ||
       `https://generativelanguage.googleapis.com/v1beta/models/${apiModel}:generateContent?key=${this.apiKey}`;
 
     const response = await fetch(apiUrl, {

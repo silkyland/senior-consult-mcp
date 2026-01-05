@@ -16,8 +16,10 @@ export class ClaudeProvider implements AIProvider {
   ): Promise<string> {
     if (!this.apiKey) throw new Error("ANTHROPIC_API_KEY not found");
 
-    const apiUrl = url || "https://api.anthropic.com/v1/messages";
-    const apiModel = model || "claude-3-5-sonnet-latest";
+    const apiUrl =
+      url || process.env.CLAUDE_URL || "https://api.anthropic.com/v1/messages";
+    const apiModel =
+      model || process.env.CLAUDE_MODEL || "claude-3-5-sonnet-latest";
 
     const response = await fetch(apiUrl, {
       method: "POST",

@@ -16,8 +16,11 @@ export class ZaiProvider implements AIProvider {
   ): Promise<string> {
     if (!this.apiKey) throw new Error("ZHIPU_API_KEY not found");
 
-    const apiUrl = url || "https://api.z.ai/api/paas/v4/chat/completions";
-    const apiModel = model || "glm-4-plus";
+    const apiUrl =
+      url ||
+      process.env.ZAI_URL ||
+      "https://api.z.ai/api/paas/v4/chat/completions";
+    const apiModel = model || process.env.ZAI_MODEL || "glm-4-plus";
 
     const response = await fetch(apiUrl, {
       method: "POST",

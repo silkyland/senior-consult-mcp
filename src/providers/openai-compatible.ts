@@ -16,17 +16,22 @@ export class OpenAICompatibleProvider implements AIProvider {
   ): Promise<string> {
     if (!this.apiKey) throw new Error("OPENAI_COMPATIBLE_API_KEY not found");
 
-    if (!url) {
+    const apiUrl = url || process.env.OPENAI_COMPATIBLE_URL;
+    const apiModel = model || process.env.OPENAI_COMPATIBLE_MODEL;
+
+    if (!apiUrl) {
       throw new Error(
-        "URL is required for openai-compatible provider (e.g., https://openrouter.ai/api/v1/chat/completions)"
+        "URL is required for openai-compatible provider (pass via tool arg or OPENAI_COMPATIBLE_URL env var)"
       );
     }
 
-    if (!model) {
-      throw new Error("Model is required for openai-compatible provider");
+    if (!apiModel) {
+      throw new Error(
+        "Model is required for openai-compatible provider (pass via tool arg or OPENAI_COMPATIBLE_MODEL env var)"
+      );
     }
 
-    const response = await fetch(url, {
+    const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
