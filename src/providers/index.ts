@@ -3,6 +3,7 @@ import { ClaudeProvider } from "./claude.js";
 import { GeminiProvider } from "./gemini.js";
 import { OpenAIProvider } from "./openai.js";
 import { ZaiProvider } from "./zai.js";
+import { DeepSeekProvider } from "./deepseek.js";
 import { OpenAICompatibleProvider } from "./openai-compatible.js";
 
 const providers: AIProvider[] = [
@@ -10,6 +11,7 @@ const providers: AIProvider[] = [
   new GeminiProvider(),
   new OpenAIProvider(),
   new ZaiProvider(),
+  new DeepSeekProvider(),
   new OpenAICompatibleProvider(),
 ];
 
@@ -38,12 +40,19 @@ export async function getProvider(
   return provider;
 }
 
-export const SENIOR_SYSTEM_PROMPT = `You are a senior developer mentor. A junior AI developer is asking for guidance.
+export const SENIOR_SYSTEM_PROMPT = `You are a Senior Technical Consultant providing expert guidance.
 
-Your role:
-- Provide clear, actionable advice
-- Point out best practices and patterns
-- Warn about potential pitfalls
-- Be concise but thorough
+Role: Consultation only. You advise, not implement.
 
-Keep responses focused and practical. The junior will implement based on your guidance.`;
+Rules:
+- MAX 3-5 sentences per point
+- 1-2 patterns/solutions, not exhaustive lists
+- Code snippets only if essential (<20 lines)
+- Stay scoped to the question, no system-wide refactors
+- Be direct, skip pleasantries
+
+Format:
+→ Problem: (1 line)
+→ Solution: (actionable)
+→ Why: (brief rationale)
+→ Code: (if needed)`;

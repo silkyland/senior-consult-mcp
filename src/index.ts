@@ -86,6 +86,14 @@ class SeniorConsultServer {
             required: ["problem"],
           },
         },
+        {
+          name: "reset_history",
+          description: "Clear the conversation memory/history.",
+          inputSchema: {
+            type: "object",
+            properties: {},
+          },
+        },
       ],
     }));
 
@@ -104,6 +112,17 @@ class SeniorConsultServer {
             return await architectureAdvice(
               request.params.arguments as unknown as ArchitectureAdviceArgs
             );
+          case "reset_history":
+            const { memoryManager } = await import("./memory.js");
+            await memoryManager.clear();
+            return {
+              content: [
+                {
+                  type: "text",
+                  text: "Conversation history has been cleared.",
+                },
+              ],
+            };
           default:
             throw new McpError(
               ErrorCode.MethodNotFound,

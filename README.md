@@ -1,72 +1,86 @@
 # Senior Consult MCP Server
 
-An MCP (Model Context Protocol) server that allows a junior AI agent to consult senior AI providers (Claude, Gemini, OpenAI, Z.ai, and OpenAI-Compatible) for guidance.
+An MCP (Model Context Protocol) server that empowers junior AI agents to consult with senior AI experts (Claude, Gemini, OpenAI, DeepSeek, Z.ai) for specialized architectural and coding guidance.
+
+## Key Features
+
+- **Expert Consultation**: Seamlessly bridge the gap between junior agents and top-tier models.
+- **Smart History (Memory)**: Token-aware conversation tracking with auto-trimming to keep context precise and efficient.
+- **Support for 5+ Providers**: Native support for Claude, Gemini, OpenAI, DeepSeek, Z.ai, and any OpenAI-compatible API.
+- **Consolidated Advice**: System prompt optimized for short, high-impact technical consultation.
 
 ## How to Use
 
-Once you have installed the server and configured your API Keys, you can use it directly through your AI Agent (e.g., Windsurf, Cursor, Claude Desktop) using these tools:
+Once installed and configured, your AI Agent can call these tools:
 
-1.  **When facing complex issues**: Call `ask_senior` to send your question along with code context to a more powerful AI model (Senior) for analysis.
-2.  **When needing a code review**: Use `code_review` to check for code quality, performance, and security.
-3.  **When designing systems**: Use `architecture_advice` to get recommendations on system structure or appropriate Design Patterns.
+1.  **`ask_senior`**: General consultation for complex problems.
+2.  **`code_review`**: Detailed checks for code quality, security, and performance.
+3.  **`architecture_advice`**: Strategic advice on system design and patterns.
+4.  **`reset_history`**: Clear the conversation context/memory to start fresh.
 
 **Example Prompts**:
 
-- "Ask senior (Claude) where there might be security vulnerabilities in this code: [attach code]"
-- "Review this code snippet, focusing on performance."
-- "Consult senior about implementing Microservices for this project."
+- "Ask senior (DeepSeek) to check for potential race conditions in this logic: [attach code]"
+- "Review this snippet for potential memory leaks."
+- "Consult senior about the pros and cons of using WebSockets vs Server-Sent Events for this feature."
 
 ## Tools
 
 ### 1. `ask_senior`
 
-General purpose consultation.
+General technical consultation.
 
-- `question`: The question or problem.
+- `question`: The specific problem or question.
 
 ### 2. `code_review`
 
-Request code review.
+Expert code review.
 
-- `code`: Code to review.
+- `code`: The source code to be reviewed.
 
 ### 3. `architecture_advice`
 
-Get architecture and design pattern recommendations.
+Design and architecture guidance.
 
-- `problem`: Architecture challenge description.
+- `problem`: Description of the architectural challenge.
+
+### 4. `reset_history`
+
+Clear the current session's memory/history.
+
+---
 
 ## Configuration
 
-Set the following environment variables to configure your providers. You can set these in your MCP client's configuration (e.g., Windsurf, Claude Desktop, or VSCode MCP settings).
+Set environment variables in your MCP client configuration (e.g., Claude Desktop, Cursor, or Windsurf).
 
-### 1. API Keys (Required for each provider you use)
+### 1. API Keys (Required for used providers)
 
 - `ANTHROPIC_API_KEY`
 - `GEMINI_API_KEY`
 - `OPENAI_API_KEY`
+- `DEEPSEEK_API_KEY`
 - `ZAI_API_KEY` (or `ZHIPU_API_KEY`)
-- `OPENAI_COMPATIBLE_API_KEY` (for OpenRouter, Groq, etc.)
+- `OPENAI_COMPATIBLE_API_KEY`
 
 ### 2. Default Models & URLs (Optional)
 
-Specify your preferred models or custom endpoints via environment variables to avoid passing them in every tool call:
-
-| Provider   | Model Env Var             | URL Env Var             | Default Model       | Default URL                             |
+| Provider   | Model Env Var             | URL Env Var             | Default Model       | Default Endpoint                        |
 | ---------- | ------------------------- | ----------------------- | ------------------- | --------------------------------------- |
 | Claude     | `CLAUDE_MODEL`            | `CLAUDE_URL`            | `claude-sonnet-4-5` | `api.anthropic.com/v1/messages`         |
 | Gemini     | `GEMINI_MODEL`            | `GEMINI_URL`            | `gemini-3-flash`    | (Google AI API)                         |
-| OpenAI     | `OPENAI_MODEL`            | `OPENAI_URL`            | `gpt-5.2-codex`     | `api.openai.com/v1/chat/completions`    |
+| OpenAI     | `OPENAI_MODEL`            | `OPENAI_URL`            | `gpt-4o`            | `api.openai.com/v1/chat/completions`    |
+| DeepSeek   | `DEEPSEEK_MODEL`          | `DEEPSEEK_URL`          | `deepseek-chat`     | `api.deepseek.com/chat/completions`     |
 | Z.ai       | `ZAI_MODEL`               | `ZAI_URL`               | `glm-4.6`           | `api.z.ai/api/paas/v4/chat/completions` |
-| Compatible | `OPENAI_COMPATIBLE_MODEL` | `OPENAI_COMPATIBLE_URL` | (Required if used)  | (Required if used)                      |
+| Compatible | `OPENAI_COMPATIBLE_MODEL` | `OPENAI_COMPATIBLE_URL` | (Required)          | (Required)                              |
 
 ---
 
 ## Installation
 
-### 1. Via npx (Recommended for most users)
+### 1. Via npx (Recommended)
 
-You can run the server directly without local installation:
+Add this to your MCP settings:
 
 ```json
 {
@@ -75,11 +89,9 @@ You can run the server directly without local installation:
       "command": "npx",
       "args": ["-y", "senior-consult-mcp"],
       "env": {
+        "DEEPSEEK_API_KEY": "your-key",
         "ANTHROPIC_API_KEY": "your-key",
-        "GEMINI_API_KEY": "your-key",
-        "OPENAI_API_KEY": "your-key",
-        "ZAI_API_KEY": "your-key",
-        "OPENAI_COMPATIBLE_API_KEY": "your-key"
+        "GEMINI_API_KEY": "your-key"
       }
     }
   }
@@ -92,24 +104,7 @@ You can run the server directly without local installation:
 npm install -g senior-consult-mcp
 ```
 
-Then use `senior-consult` as the command:
-
-```json
-{
-  "mcpServers": {
-    "senior-consult": {
-      "command": "senior-consult",
-      "env": {
-        "ANTHROPIC_API_KEY": "your-key",
-        "GEMINI_API_KEY": "your-key",
-        "OPENAI_API_KEY": "your-key",
-        "ZAI_API_KEY": "your-key",
-        "OPENAI_COMPATIBLE_API_KEY": "your-key"
-      }
-    }
-  }
-}
-```
+---
 
 ## Development
 
@@ -117,14 +112,12 @@ Then use `senior-consult` as the command:
 # Install dependencies
 npm install
 
-# Build the project
+# Build
 npm run build
 
-# Start (for testing stdio)
+# Test locally (stdio)
 npm start
 ```
-
-The server runs on `stdio`.
 
 ## License
 

@@ -4,6 +4,7 @@ export type ProviderType =
   | "openai"
   | "z.ai"
   | "openai-compatible"
+  | "deepseek"
   | "auto";
 
 export interface ProviderResponse {

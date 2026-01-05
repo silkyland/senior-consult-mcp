@@ -1,8 +1,8 @@
 import { AIProvider } from "../types.js";
 
-export class ZaiProvider implements AIProvider {
-  name = "z.ai";
-  private apiKey = process.env.ZAI_API_KEY || process.env.ZHIPU_API_KEY;
+export class DeepSeekProvider implements AIProvider {
+  name = "deepseek";
+  private apiKey = process.env.DEEPSEEK_API_KEY;
 
   canHandle(): boolean {
     return !!this.apiKey;
@@ -14,13 +14,13 @@ export class ZaiProvider implements AIProvider {
     model?: string,
     url?: string
   ): Promise<string> {
-    if (!this.apiKey) throw new Error("ZHIPU_API_KEY not found");
+    if (!this.apiKey) throw new Error("DEEPSEEK_API_KEY not found");
 
     const apiUrl =
       url ||
-      process.env.ZAI_URL ||
-      "https://api.z.ai/api/coding/paas/v4/chat/completions";
-    const apiModel = model || process.env.ZAI_MODEL || "glm-4.6";
+      process.env.DEEPSEEK_URL ||
+      "https://api.deepseek.com/chat/completions";
+    const apiModel = model || process.env.DEEPSEEK_MODEL || "deepseek-chat";
 
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -34,12 +34,13 @@ export class ZaiProvider implements AIProvider {
           { role: "system", content: systemPrompt },
           { role: "user", content: prompt },
         ],
+        stream: false,
       }),
     });
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(`Zhipu API error: ${response.status} ${error}`);
+      throw new Error(`DeepSeek API error: ${response.status} ${error}`);
     }
 
     const data = (await response.json()) as any;
