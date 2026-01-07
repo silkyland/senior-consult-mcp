@@ -1,12 +1,20 @@
 {
   "name": "senior-consult-mcp",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "dist/index.js",
   "bin": {
     "senior-consult": "dist/index.js"
   },
   "type": "module",
   "description": "An MCP server for junior AI agents to consult senior AI developer mentors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silkyland/senior-consult-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/silkyland/senior-consult-mcp/issues"
+  },
+  "homepage": "https://github.com/silkyland/senior-consult-mcp#readme",
   "publishConfig": {
     "access": "public"
   },
